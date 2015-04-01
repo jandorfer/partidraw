@@ -16,6 +16,7 @@ class ParticleDrawing {
         this.setupScene();
         this.setupRenderer();
         this.setupModes();
+        this.setupToggles();
         this.setupResize();
         
         this.tick();
@@ -83,6 +84,40 @@ class ParticleDrawing {
             link.appendChild(document.createTextNode(this.modes[i].name));
             root.appendChild(link);
         }
+    }
+    
+    setupToggles() {
+        let root = document.getElementById("toggles");
+        if (!root) return;
+        
+        let link = document.createElement('a');
+        link.setAttribute("href", "#");
+        link.onclick = (e) => {
+            e.stopPropagation();
+            this.areaSink.area = AreaSinkBehavior.Rectangle(0, 0, window.innerWidth, window.innerHeight).area;
+        }
+        link.appendChild(document.createTextNode("reset"));
+        root.appendChild(link);
+        
+        let link2 = document.createElement('a');
+        link2.setAttribute("href", "#");
+        link2.onclick = (e) => {
+            e.stopPropagation();
+            this.firefly.enabled = !this.firefly.enabled;
+            link2.innerHTML = "firefly " + (this.firefly.enabled ? "on" : "off");
+        }
+        link2.innerHTML = "firefly " + (this.firefly.enabled ? "on" : "off");
+        root.appendChild(link2);
+        
+        let link3 = document.createElement('a');
+        link3.setAttribute("href", "#");
+        link3.onclick = (e) => {
+            e.stopPropagation();
+            this.boundsWrapping.enabled = !this.boundsWrapping.enabled;
+            link3.innerHTML = "wrapping " + (this.boundsWrapping.enabled ? "on" : "off");
+        }
+        link3.innerHTML = "wrapping " + (this.boundsWrapping.enabled ? "on" : "off");
+        root.appendChild(link3);
     }
     
     setupResize() {

@@ -11,6 +11,8 @@ export default class FireflyBehavior extends Behavior {
     }
     
     update(particle) {
+        if (!this.enabled) return;
+        
         particle.direction += particle.turn * 0.1;
         particle.zdirection += particle.zturn * 0.5;
         particle.turn += 0.15 * (Math.random() - 0.5);

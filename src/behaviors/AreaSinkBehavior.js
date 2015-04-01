@@ -3,6 +3,7 @@ import Behavior from "./Behavior";
 export default class AreaSinkBehavior extends Behavior {
 
     constructor(area) {
+        super();
         this.area = area;
     }
 
@@ -11,6 +12,8 @@ export default class AreaSinkBehavior extends Behavior {
     }
     
     update(particle) {
+        if (!this.enabled) return;
+        
         let pos = Math.floor(this.area.length * particle.percentIndex);
         let sink = this.area[pos];
         let direction = Math.atan2(sink.x - particle.position.x, sink.y - particle.position.y);
