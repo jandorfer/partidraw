@@ -4,6 +4,7 @@ import FireflyBehavior from "./behaviors/FireflyBehavior";
 import WrappingBoundsBehavior from "./behaviors/WrappingBoundsBehavior";
 
 import Mode from "./modes/Mode";
+import MouseDrawAreaMode from "./modes/MouseDrawAreaMode";
 import RandomAreaResetMode from "./modes/RandomAreaResetMode";
 
 const PARTICLE_COUNT = 1500;
@@ -45,13 +46,14 @@ class ParticleDrawing {
         this.mode = 1;
         this.modes = [
             new Mode(),
-            new RandomAreaResetMode(this.areaSink)
+            new RandomAreaResetMode(this.areaSink),
+            new MouseDrawAreaMode(this.areaSink)
         ];
         
         window.onclick = (e) => { this.modes[this.mode].onclick(e); }
-        window.mousedown = (e) => { this.modes[this.mode].mousedown(e); }
-        window.mousemove = (e) => { this.modes[this.mode].mousemove(e); }
-        window.mouseup = (e) => { this.modes[this.mode].mouseup(e); }
+        window.onmousedown = (e) => { this.modes[this.mode].onmousedown(e); }
+        window.onmousemove = (e) => { this.modes[this.mode].onmousemove(e); }
+        window.onmouseup = (e) => { this.modes[this.mode].onmouseup(e); }
         
         this.setupModeSwitcher();
     }
@@ -105,8 +107,6 @@ class ParticleDrawing {
     
     switchMode(mode, e) {
         if (mode < 0 || mode > this.modes.length) return;
-        
-        
         
         this.modes[this.mode].stop();
         this.mode = mode;
