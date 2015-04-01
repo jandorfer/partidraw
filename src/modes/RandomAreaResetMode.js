@@ -3,6 +3,8 @@ import AreaSinkBehavior from "../behaviors/AreaSinkBehavior";
 
 export default class RandomAreaResetMode extends Mode {
     constructor(sink) {
+        this.name = "Random Rect";
+        this.description = "Click anywhere to randomly reset the target shape.";
         this.sink = sink;
     }
     

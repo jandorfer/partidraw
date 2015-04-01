@@ -3,6 +3,7 @@ import AreaSinkBehavior from "./behaviors/AreaSinkBehavior";
 import FireflyBehavior from "./behaviors/FireflyBehavior";
 import WrappingBoundsBehavior from "./behaviors/WrappingBoundsBehavior";
 
+import Mode from "./modes/Mode";
 import RandomAreaResetMode from "./modes/RandomAreaResetMode";
 
 const PARTICLE_COUNT = 1500;
@@ -41,8 +42,9 @@ class ParticleDrawing {
     }
     
     setupModes() {
-        this.mode = 0;
+        this.mode = 1;
         this.modes = [
+            new Mode(),
             new RandomAreaResetMode(this.areaSink)
         ];
         
@@ -50,6 +52,35 @@ class ParticleDrawing {
         window.mousedown = (e) => { this.modes[this.mode].mousedown(e); }
         window.mousemove = (e) => { this.modes[this.mode].mousemove(e); }
         window.mouseup = (e) => { this.modes[this.mode].mouseup(e); }
+        
+        this.setupModeSwitcher();
+    }
+    
+    setupModeSwitcher() {
+        let root = document.getElementById("mode-switcher");
+        let desc = document.getElementById("mode-desc");
+        if (!root) return;
+        
+        let selected = null;
+        for (let i=0; i<this.modes.length; i++) {
+            let link = document.createElement('a');
+            link.setAttribute("href", "#");
+            link.onclick = (e) => {
+                e.stopPropagation();
+                if (selected) selected.classList.remove('active');
+                selected = link;
+                link.classList.add('active');
+                if (desc) desc.innerHTML = this.modes[i].description;
+                this.switchMode(i);
+            }
+            if (this.mode === i) {
+                link.classList.add('active');
+                if (desc) desc.innerHTML = this.modes[i].description;
+                selected = link;
+            }
+            link.appendChild(document.createTextNode(this.modes[i].name));
+            root.appendChild(link);
+        }
     }
     
     setupResize() {
@@ -72,8 +103,10 @@ class ParticleDrawing {
         requestAnimationFrame(this.tick.bind(this));
     }
     
-    switchMode(mode) {
+    switchMode(mode, e) {
         if (mode < 0 || mode > this.modes.length) return;
+        
+        
         
         this.modes[this.mode].stop();
         this.mode = mode;
