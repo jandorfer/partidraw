@@ -5,7 +5,7 @@ export default class ParticleScene {
     constructor(count, ...behaviors) {
         this.particles = [];
         this.behaviors = behaviors;
-        this.container = new PIXI.DisplayObjectContainer();
+        this.container = new PIXI.Container();
 
         for (let i=0; i<count; i++) {
             var particle = new Particle({color:0xFFFFFF,alpha:Math.random(),x:0,y:0});
