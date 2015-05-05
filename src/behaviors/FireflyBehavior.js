@@ -4,7 +4,7 @@ export default class FireflyBehavior extends Behavior {
 
     initialize(particle) {
         particle.direction = particle.direction || Math.random() * Math.PI * 2;
-        particle.zdirection = particle.zdirection || Math.random() * Math.PI * 2
+        particle.zdirection = particle.zdirection || Math.random() * Math.PI * 2;
         particle.speed = particle.speed || 1;
         particle.turn = Math.random() - 0.5;
         particle.zturn = Math.random() - 0.5;

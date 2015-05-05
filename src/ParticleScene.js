@@ -1,14 +1,14 @@
+import Particle from "./graphics/particle"
+
 export default class ParticleScene {
 
     constructor(count, ...behaviors) {
         this.particles = [];
         this.behaviors = behaviors;
-        this.container = new PIXI.ParticleContainer(count, [true, true, false, true, true]);
-        this.texture = new PIXI.Texture.fromImage("sprite.png");
-        
+        this.container = new PIXI.Container();
+
         for (let i=0; i<count; i++) {
-            var particle = new PIXI.Sprite(this.texture);
-            particle.anchor.set(0.5);
+            var particle = new Particle({color:0xFFFFFF,alpha:Math.random(),x:0,y:0});
             particle.scale.x = 0.2;
             particle.scale.y = 0.2;
             
