@@ -8,7 +8,7 @@ import MouseDrawAreaMode from "./modes/MouseDrawAreaMode";
 import RandomAreaResetMode from "./modes/RandomAreaResetMode";
 
 const PARTICLE_COUNT = 1500;
-const scale = 2;
+const scale = 1;
 
 class ParticleDrawing {
     constructor( count ) {
@@ -36,7 +36,7 @@ class ParticleDrawing {
     }
 
     setupRenderer() {
-        this.renderer = PIXI.autoDetectRenderer(window.innerWidth * scale, window.innerHeight * scale,null, false, true);
+        this.renderer = PIXI.autoDetectRenderer(window.innerWidth * scale, window.innerHeight * scale,{antialias:true,resolution:2});
         this.renderer.view.style.position = "fixed";
         this.renderer.view.style.left = "0";
         this.renderer.view.style.top = "0";
