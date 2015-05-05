@@ -36,7 +36,7 @@ class ParticleDrawing {
     }
 
     setupRenderer() {
-        this.renderer = PIXI.autoDetectRenderer(window.innerWidth * scale, window.innerHeight * scale);
+        this.renderer = PIXI.autoDetectRenderer(window.innerWidth * scale, window.innerHeight * scale,null, false, true);
         this.renderer.view.style.position = "fixed";
         this.renderer.view.style.left = "0";
         this.renderer.view.style.top = "0";
